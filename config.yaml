@@ -1,0 +1,40 @@
+
+model_config:
+  model_name: "gpt2" # Or "gpt2", "mistralai/Mistral-7B-v0.1", etc.
+  device: "cuda" # or "cpu"
+  dtype: "torch.float16"
+
+probe_config:
+  layer_idx: -2 # tap late layer (L-2 by default)
+  pool_n: 32 # pooling window
+  confidence_probe_training:
+    epochs: 8
+    batch_size: 256
+    lr: 0.001
+    l2: 0.0001
+  binary_probe_training:
+    epochs: 6
+    batch_size: 256
+    lr: 0.001
+    l2: 0.0001
+
+decoding_config:
+  HARM_THD: 0.50
+  HIGH_CONF_THD: 0.80
+  LOW_CONF_THD: 0.30
+  TRUTH_THD: 0.80
+  ETA_H: 2.0
+  ETA_Q: 2.0
+  MU: 0.2
+  EPSILON: 5.0
+  GUARD_K: 5
+  GUARD_TAU_LOW: 0.20
+  GUARD_DOOMED_K: 5
+  max_new_tokens: 64
+
+truthfulqa_config:
+  dataset_split: "validation"
+  cache_dir: "./data/truthfulqa_cache"
+
+
+
